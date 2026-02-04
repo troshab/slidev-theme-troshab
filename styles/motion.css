@@ -1,0 +1,636 @@
+/* ============================================
+   slidev-theme-troshab — Motion System
+   ============================================
+
+   Based on IBM Carbon Design Motion Guidelines
+   https://carbondesignsystem.com/elements/motion/overview/
+
+   PRINCIPLES:
+   1. Purposeful — motion guides focus, not distracts
+   2. Responsive — motion gives feedback
+   3. Natural — follows physics, not linear
+   4. Automatic — smart defaults based on content type
+
+   ============================================ */
+
+/* ============================================
+   1. Motion Tokens
+   ============================================ */
+
+:root {
+  /* --- Easing Functions (IBM Carbon) --- */
+  /* Standard: default for most animations */
+  --ease-standard: cubic-bezier(0.2, 0.0, 0.38, 0.9);
+  /* Enter: elements entering the viewport */
+  --ease-enter: cubic-bezier(0.0, 0.0, 0.38, 0.9);
+  /* Exit: elements leaving the viewport */
+  --ease-exit: cubic-bezier(0.2, 0.0, 1.0, 0.9);
+  /* Expressive: for decorative/expressive animations */
+  --ease-expressive: cubic-bezier(0.4, 0.14, 0.3, 1.0);
+
+  /* --- Durations (IBM Carbon) --- */
+  --dur-fast-01: 70ms;    /* micro-interactions */
+  --dur-fast-02: 110ms;   /* small UI elements */
+  --dur-moderate-01: 150ms; /* medium complexity */
+  --dur-moderate-02: 240ms; /* opening/closing */
+  --dur-slow-01: 400ms;   /* large movements */
+  --dur-slow-02: 700ms;   /* complex sequences */
+
+  /* --- Exit Timing Modifier (Material Design) --- */
+  /* Exit animations should be ~20% faster than enter */
+  --dur-exit-modifier: 0.8;
+
+  /* --- Movement Distances --- */
+  --shift-xs: 6px;   /* subtle */
+  --shift-sm: 12px;  /* small */
+  --shift-md: 20px;  /* medium */
+  --shift-lg: 28px;  /* large */
+
+  /* --- Scale Values --- */
+  --scale-subtle: 0.985;
+  --scale-moderate: 0.95;
+  --scale-dramatic: 0.9;
+
+  /* --- Default Motion Mode (calm) --- */
+  --motion-duration: var(--dur-moderate-02);
+  --motion-ease: var(--ease-standard);
+  --motion-shift: var(--shift-md);
+  --motion-scale: var(--scale-subtle);
+
+  /* --- Stagger Delays --- */
+  --stagger-base: 50ms;
+}
+
+/* ============================================
+   2. Motion Modes
+   ============================================
+
+   Apply class to slide or container:
+   - (default): calm, minimal motion
+   - .motion-crisp: faster, smaller amplitudes
+   - .motion-expressive: softer, longer durations
+*/
+
+/* Crisp mode — faster, snappier */
+.motion-crisp {
+  --motion-duration: var(--dur-moderate-01);
+  --motion-ease: var(--ease-standard);
+  --motion-shift: var(--shift-sm);
+  --motion-scale: 0.99;
+  --stagger-base: 30ms;
+}
+
+/* Expressive mode — slower, more dramatic */
+.motion-expressive {
+  --motion-duration: var(--dur-slow-01);
+  --motion-ease: var(--ease-expressive);
+  --motion-shift: var(--shift-lg);
+  --motion-scale: var(--scale-moderate);
+  --stagger-base: 70ms;
+}
+
+/* ============================================
+   3. v-click Reveal Styles
+   ============================================
+
+   Default Slidev v-click behavior is fade + subtle rise.
+
+   Apply class to container for different effects:
+   - (default): fade + subtle rise
+   - .reveal-fade: opacity only
+   - .reveal-slide: slide from right
+   - .reveal-pop: scale up
+
+   Automatic detection by content type (no class needed):
+   - Code blocks: fade only (no movement disrupts alignment)
+   - Tables: fade only
+   - Lists: subtle slide from left
+   - Large text (KPIs): pop effect
+   - Blockquotes: fade only
+*/
+
+/* Default v-click: fade + subtle rise */
+.slidev-vclick-target {
+  transition:
+    opacity var(--motion-duration) var(--ease-enter),
+    transform var(--motion-duration) var(--ease-enter);
+}
+
+.slidev-vclick-hidden {
+  opacity: 0;
+  transform: translateY(var(--shift-sm));
+}
+
+/* reveal-fade: opacity only */
+.reveal-fade .slidev-vclick-hidden {
+  opacity: 0;
+  transform: none;
+}
+
+/* reveal-slide: slide from right */
+.reveal-slide .slidev-vclick-hidden {
+  opacity: 0;
+  transform: translateX(var(--motion-shift));
+}
+
+/* reveal-pop: scale up */
+.reveal-pop .slidev-vclick-hidden {
+  opacity: 0;
+  transform: scale(var(--scale-moderate));
+}
+
+/* ============================================
+   3b. Automatic Content-Type Detection
+   ============================================
+
+   Smart v-click reveal based on element type.
+   These override the default rise animation for specific content.
+*/
+
+/* Code blocks: fade only (no movement disrupts alignment) */
+.slidev-layout pre.slidev-vclick-hidden,
+.slidev-layout .shiki.slidev-vclick-hidden,
+.slidev-layout pre .slidev-vclick-hidden,
+.slidev-layout .shiki .slidev-vclick-hidden {
+  transform: none;
+}
+
+/* Tables: fade only (preserves alignment) */
+.slidev-layout table.slidev-vclick-hidden,
+.slidev-layout table .slidev-vclick-hidden {
+  transform: none;
+}
+
+/* Blockquotes: fade only (elegant reveal) */
+.slidev-layout blockquote.slidev-vclick-hidden,
+.slidev-layout blockquote .slidev-vclick-hidden {
+  transform: none;
+}
+
+/* Lists inside v-clicks: subtle slide from left */
+.slidev-layout li.slidev-vclick-hidden {
+  transform: translateX(calc(var(--shift-sm) * -1));
+}
+
+/* Large text (KPIs, metrics): pop effect */
+.slidev-layout .text-4xl.slidev-vclick-hidden,
+.slidev-layout .text-5xl.slidev-vclick-hidden,
+.slidev-layout .text-6xl.slidev-vclick-hidden,
+.slidev-layout .text-7xl.slidev-vclick-hidden,
+.slidev-layout .text-8xl.slidev-vclick-hidden,
+.slidev-layout [class*="font-size-h1"].slidev-vclick-hidden,
+.slidev-layout .fact-value.slidev-vclick-hidden {
+  transform: scale(var(--scale-moderate));
+}
+
+/* Images: fade only */
+.slidev-layout img.slidev-vclick-hidden {
+  transform: none;
+}
+
+/* Diagrams (mermaid, SVG): fade only */
+.slidev-layout .mermaid.slidev-vclick-hidden,
+.slidev-layout svg.slidev-vclick-hidden {
+  transform: none;
+}
+
+/* ============================================
+   3c. List Stagger Pattern
+   ============================================
+
+   Natural stagger for v-clicks on list items.
+   Limited to 6 items (Material Design: avoid "crawling" effect).
+*/
+
+/* Default stagger delays */
+.slidev-layout li.slidev-vclick-target:nth-child(1) { transition-delay: 0ms; }
+.slidev-layout li.slidev-vclick-target:nth-child(2) { transition-delay: var(--stagger-base); }
+.slidev-layout li.slidev-vclick-target:nth-child(3) { transition-delay: calc(var(--stagger-base) * 2); }
+.slidev-layout li.slidev-vclick-target:nth-child(4) { transition-delay: calc(var(--stagger-base) * 3); }
+.slidev-layout li.slidev-vclick-target:nth-child(5) { transition-delay: calc(var(--stagger-base) * 4); }
+.slidev-layout li.slidev-vclick-target:nth-child(6) { transition-delay: calc(var(--stagger-base) * 5); }
+/* Items 7+ get no additional delay to avoid "crawling" */
+.slidev-layout li.slidev-vclick-target:nth-child(n+7) { transition-delay: calc(var(--stagger-base) * 5); }
+
+/* Reset delay when item becomes visible (avoid lingering delay) */
+.slidev-layout li.slidev-vclick-target:not(.slidev-vclick-hidden) {
+  transition-delay: 0ms;
+}
+
+/* ============================================
+   4. Layout Entrance Animations
+   ============================================
+
+   CSS-based entrance animations for key layouts.
+
+   SEMANTIC DIRECTION PHILOSOPHY:
+   - Headings (h1, h2, h3): "fall" from above ↓
+   - Content (single block): "rise" from below ↑
+   - Two columns: slide from sides ← →
+   - Grid (3-4 cols): edges from sides, center rises
+*/
+
+/* --- Cover layout --- */
+/* Title falls from above */
+.cover-container h1 {
+  animation: entrance-fall var(--dur-moderate-02) var(--ease-enter) both;
+}
+
+.cover-container h2 {
+  animation: entrance-fall var(--dur-moderate-02) var(--ease-enter) calc(var(--stagger-base) * 2) both;
+}
+
+/* Other content rises from below */
+.cover-container p,
+.cover-container > *:not(h1):not(h2) {
+  animation: entrance-rise var(--dur-moderate-02) var(--ease-enter) calc(var(--stagger-base) * 3) both;
+}
+
+/* --- Section layout --- */
+/* Heading falls */
+.section-container h1,
+.section-container h2 {
+  animation: entrance-fall var(--dur-moderate-02) var(--ease-enter) both;
+}
+
+/* --- Fact layout --- */
+/* Value rises (emphasizes impact) */
+.fact-value {
+  animation: entrance-rise var(--dur-slow-01) var(--ease-expressive) both;
+}
+
+/* Label falls after value */
+.fact-label {
+  animation: entrance-fall var(--dur-moderate-02) var(--ease-enter) calc(var(--stagger-base) * 2) both;
+}
+
+/* --- Intro layout --- */
+.intro-avatar,
+.slidev-layout .intro-avatar + div,
+.slidev-layout img[class*="rounded-full"] {
+  animation: entrance-fade var(--dur-moderate-02) var(--ease-enter) both;
+}
+
+/* ============================================
+   4b. Content Layout Entrance Animations
+   ============================================
+
+   SEMANTIC DIRECTION PHILOSOPHY:
+   - Headings: fall from above ↓
+   - Content: rises from below ↑
+   - Two columns: from opposite sides ← →
+*/
+
+/* --- Default layout --- */
+/* Headings fall from above */
+.slidev-layout.default > h1:first-child,
+.slidev-layout.default > h2:first-child,
+.slidev-layout.default > h3:first-child {
+  animation: entrance-fall var(--dur-moderate-02) var(--ease-enter) both;
+}
+
+/* Content rises from below */
+.slidev-layout.default > *:not(h1):not(h2):not(h3) {
+  animation: entrance-rise var(--dur-moderate-02) var(--ease-enter) calc(var(--stagger-base) * 2) both;
+}
+
+/* --- Two-cols layout --- */
+/* Heading (in ::title slot) falls */
+.two-cols-title {
+  animation: entrance-fall var(--dur-moderate-02) var(--ease-enter) both;
+}
+
+/* Left column slides from left */
+.two-cols-left {
+  animation: entrance-slide-right var(--dur-moderate-02) var(--ease-enter) calc(var(--stagger-base) * 2) both;
+}
+
+/* Right column slides from right */
+.two-cols-right {
+  animation: entrance-slide-left var(--dur-moderate-02) var(--ease-enter) calc(var(--stagger-base) * 2) both;
+}
+
+/* --- Side-title layout --- */
+/* Title fades (already on side, no clear direction) */
+.side-title-title {
+  animation: entrance-fade var(--dur-moderate-02) var(--ease-enter) both;
+}
+
+/* Content rises */
+.side-title-content {
+  animation: entrance-rise var(--dur-moderate-02) var(--ease-enter) calc(var(--stagger-base) * 2) both;
+}
+
+/* --- Top-title layout --- */
+/* Bar fades (already at top) */
+.top-title-bar {
+  animation: entrance-fade var(--dur-moderate-02) var(--ease-enter) both;
+}
+
+/* Content rises from below */
+.top-title-content {
+  animation: entrance-rise var(--dur-moderate-02) var(--ease-enter) calc(var(--stagger-base) * 2) both;
+}
+
+/* --- Quote layout --- */
+/* Container fades */
+.quote-container {
+  animation: entrance-fade var(--dur-moderate-02) var(--ease-enter) both;
+}
+
+/* Quote text rises (emphasis) */
+.quote-text {
+  animation: entrance-rise var(--dur-moderate-02) var(--ease-enter) calc(var(--stagger-base) * 2) both;
+}
+
+/* Attribution falls from above */
+.quote-author {
+  animation: entrance-fall var(--dur-moderate-02) var(--ease-enter) calc(var(--stagger-base) * 3) both;
+}
+
+/* --- End layout --- */
+.end-container {
+  animation: entrance-fade var(--dur-moderate-02) var(--ease-enter) both;
+}
+
+/* End heading falls */
+.end-container h1 {
+  animation: entrance-fall var(--dur-moderate-02) var(--ease-enter) calc(var(--stagger-base) * 2) both;
+}
+
+/* --- Image layout --- */
+.image-container .image-main {
+  animation: entrance-fade var(--dur-moderate-02) var(--ease-enter) both;
+}
+
+/* Caption rises */
+.image-caption,
+.image-caption-overlay {
+  animation: entrance-rise var(--dur-moderate-02) var(--ease-enter) calc(var(--stagger-base) * 3) both;
+}
+
+/* ============================================
+   4c. Split Layout Entrance Animations
+   ============================================
+
+   SEMANTIC DIRECTION PHILOSOPHY for split layouts:
+   - Left panel slides from left
+   - Right panel slides from right
+   - Media (images/iframes) fades
+*/
+
+/* --- Image-left layout --- */
+/* Image on left fades */
+.image-left-image {
+  animation: entrance-fade var(--dur-moderate-02) var(--ease-enter) both;
+}
+
+/* Content on right slides from right */
+.image-left-content {
+  animation: entrance-slide-left var(--dur-moderate-02) var(--ease-enter) calc(var(--stagger-base) * 2) both;
+}
+
+/* --- Image-right layout --- */
+/* Content on left slides from left */
+.image-right-content {
+  animation: entrance-slide-right var(--dur-moderate-02) var(--ease-enter) both;
+}
+
+/* Image on right fades */
+.image-right-image {
+  animation: entrance-fade var(--dur-moderate-02) var(--ease-enter) calc(var(--stagger-base) * 2) both;
+}
+
+/* --- Iframe-left layout --- */
+/* Iframe on left fades */
+.iframe-left-frame {
+  animation: entrance-fade var(--dur-moderate-02) var(--ease-enter) both;
+}
+
+/* Content on right slides from right */
+.iframe-left-content {
+  animation: entrance-slide-left var(--dur-moderate-02) var(--ease-enter) calc(var(--stagger-base) * 2) both;
+}
+
+/* --- Iframe-right layout --- */
+/* Content on left slides from left */
+.iframe-right-content {
+  animation: entrance-slide-right var(--dur-moderate-02) var(--ease-enter) both;
+}
+
+/* Iframe on right fades */
+.iframe-right-frame {
+  animation: entrance-fade var(--dur-moderate-02) var(--ease-enter) calc(var(--stagger-base) * 2) both;
+}
+
+/* --- Two-cols-header layout --- */
+/* Header falls from above */
+.two-cols-header-title {
+  animation: entrance-fall var(--dur-moderate-02) var(--ease-enter) both;
+}
+
+/* Columns inherit from .two-cols-left and .two-cols-right */
+
+/* --- Statement layout --- */
+/* Heading falls for impact */
+.statement-content h1,
+.statement-content h2 {
+  animation: entrance-fall var(--dur-slow-01) var(--ease-expressive) both;
+}
+
+/* Supporting text rises */
+.statement-content p,
+.statement-content > *:not(h1):not(h2) {
+  animation: entrance-rise var(--dur-moderate-02) var(--ease-enter) calc(var(--stagger-base) * 3) both;
+}
+
+/* --- Center layout --- */
+/* Content rises (centered layouts = emphasis on content) */
+.center-container {
+  animation: entrance-rise var(--dur-moderate-02) var(--ease-enter) both;
+}
+
+/* --- Full layout --- */
+/* No animation for fullscreen content */
+.full-container {
+  animation: none;
+}
+
+/* ============================================
+   4d. Grid Layout Entrance Animations
+   ============================================
+
+   For 3-4 column grids:
+   - First column: slides from left
+   - Last column: slides from right
+   - Center columns: rise from below
+*/
+
+/* First grid item — from left */
+.slidev-layout .grid > *:first-child {
+  animation: entrance-slide-right var(--dur-moderate-02) var(--ease-enter) calc(var(--stagger-base) * 2) both;
+}
+
+/* Last grid item — from right */
+.slidev-layout .grid > *:last-child {
+  animation: entrance-slide-left var(--dur-moderate-02) var(--ease-enter) calc(var(--stagger-base) * 2) both;
+}
+
+/* Center grid items — rise from below */
+.slidev-layout .grid > *:not(:first-child):not(:last-child) {
+  animation: entrance-rise var(--dur-moderate-02) var(--ease-enter) calc(var(--stagger-base) * 3) both;
+}
+
+/* ============================================
+   5. Keyframe Animations
+   ============================================ */
+
+@keyframes entrance-fade {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+/* Fall from above — for headings */
+@keyframes entrance-fall {
+  from {
+    opacity: 0;
+    transform: translateY(calc(var(--shift-md) * -1));
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Rise from below — for content */
+@keyframes entrance-rise {
+  from {
+    opacity: 0;
+    transform: translateY(var(--shift-md));
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes entrance-scale {
+  from {
+    opacity: 0;
+    transform: scale(var(--scale-moderate));
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+/* Slide from left side (element comes from left) */
+@keyframes entrance-slide-right {
+  from {
+    opacity: 0;
+    transform: translateX(calc(var(--shift-md) * -1));
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+/* Slide from right side (element comes from right) */
+@keyframes entrance-slide-left {
+  from {
+    opacity: 0;
+    transform: translateX(var(--shift-md));
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+/* ============================================
+   6. Utility Classes
+   ============================================ */
+
+/* Delay utilities for staggered animations */
+.delay-100 { animation-delay: 100ms; }
+.delay-200 { animation-delay: 200ms; }
+.delay-300 { animation-delay: 300ms; }
+.delay-400 { animation-delay: 400ms; }
+.delay-500 { animation-delay: 500ms; }
+
+/* Duration utilities */
+.duration-fast { animation-duration: var(--dur-fast-02); }
+.duration-moderate { animation-duration: var(--dur-moderate-02); }
+.duration-slow { animation-duration: var(--dur-slow-01); }
+
+/* No animation utility */
+.no-animate {
+  animation: none !important;
+  transition: none !important;
+}
+
+/* ============================================
+   7. Reduced Motion Support (WCAG 2.1)
+   ============================================
+
+   Users with vestibular disorders or motion sensitivity
+   can enable "Reduce motion" in their OS settings.
+   This disables all non-essential animations.
+
+   TODO: Uncomment when ready to enable reduced motion support
+*/
+
+/*
+@media (prefers-reduced-motion: reduce) {
+  .slidev-layout *,
+  .cover-container *,
+  .section-container *,
+  .fact-value,
+  .fact-label,
+  .intro-avatar,
+  .two-cols-title,
+  .two-cols-left,
+  .two-cols-right,
+  .side-title-title,
+  .side-title-content,
+  .top-title-bar,
+  .top-title-content,
+  .quote-container,
+  .quote-text,
+  .quote-author,
+  .end-container *,
+  .image-container *,
+  .image-left-image,
+  .image-left-content,
+  .image-right-content,
+  .image-right-image,
+  .iframe-left-frame,
+  .iframe-left-content,
+  .iframe-right-content,
+  .iframe-right-frame,
+  .two-cols-header-title,
+  .statement-content *,
+  .center-container,
+  .slidev-layout .grid > * {
+    animation: none !important;
+    animation-duration: 0.01ms !important;
+    animation-delay: 0ms !important;
+  }
+
+  .slidev-vclick-target {
+    transition-duration: 0.01ms !important;
+    transition-delay: 0ms !important;
+  }
+
+  .slidev-vclick-hidden {
+    opacity: 0;
+    transform: none !important;
+  }
+}
+*/

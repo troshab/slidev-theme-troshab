@@ -1,0 +1,1040 @@
+/* ============================================
+   slidev-theme-troshab — Typography & Base Styles
+   ============================================
+
+   Dyslexia-friendly defaults based on:
+   - British Dyslexia Association guidelines
+   - WCAG 2.1 accessibility standards
+   - ISO 9241 display ergonomics
+   ============================================ */
+
+/* Import color system */
+@import './colors.css';
+
+/* ============================================
+   1. @font-face — IBM Plex (local)
+   ============================================ */
+
+@font-face {
+  font-family: 'IBM Plex Sans';
+  src: url('../fonts/IBMPlexSans-Regular.woff2') format('woff2');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'IBM Plex Sans';
+  src: url('../fonts/IBMPlexSans-Medium.woff2') format('woff2');
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'IBM Plex Sans';
+  src: url('../fonts/IBMPlexSans-SemiBold.woff2') format('woff2');
+  font-weight: 600;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'IBM Plex Sans';
+  src: url('../fonts/IBMPlexSans-Bold.woff2') format('woff2');
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'IBM Plex Mono';
+  src: url('../fonts/IBMPlexMono-Regular.woff2') format('woff2');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'IBM Plex Mono';
+  src: url('../fonts/IBMPlexMono-Medium.woff2') format('woff2');
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+
+/* ============================================
+   2. CSS Custom Properties (Typography & Layout)
+   Note: Colors are defined in colors.css
+   ============================================ */
+
+:root {
+  /* --- Fonts --- */
+  --font-sans: 'IBM Plex Sans', system-ui, -apple-system, sans-serif;
+  --font-mono: 'IBM Plex Mono', 'Consolas', 'Monaco', monospace;
+
+  /* --- Typography Scale (Perfect Fourth 1.333, base 24px for slides) ---
+     Optimized for projector/large display readability.
+     Scale: 18 → 24 → 32 → 43 → 57 (px)
+  */
+  --font-size-caption: 1.125rem;  /* 18px — captions, labels */
+  --font-size-base: 1.5rem;       /* 24px — body text (slide base) */
+  --font-size-subhead: 2rem;      /* 32px — h3, subheadings */
+  --font-size-h2: 2.6875rem;      /* 43px — h2 */
+  --font-size-h1: 3.5625rem;      /* 57px — h1 */
+
+  /* Legacy aliases for compatibility */
+  --font-size-small: var(--font-size-caption);
+  --font-size-code: 1.25rem;      /* 20px — code blocks */
+
+  /* --- Font Weights --- */
+  --font-weight-normal: 400;
+  --font-weight-medium: 500;
+  --font-weight-semibold: 600;
+  --font-weight-bold: 700;
+
+  /* --- Line Heights (role-based) --- */
+  --line-height-heading: 1.15;    /* tight for 1-2 line headings */
+  --line-height-body: 1.35;       /* slides with short text blocks */
+  --line-height-reading: 1.5;     /* longer paragraphs, BDA recommended */
+  --line-height-list: 1.4;
+  --line-height-code: 1.4;
+
+  /* --- Letter & Word Spacing (dyslexia-friendly) --- */
+  --letter-spacing-body: 0.02em;
+  --word-spacing-body: 0.05em;
+  --letter-spacing-heading: 0.01em;
+
+  /* --- Spacing System (8-point grid) ---
+     Based on 8px base unit for visual rhythm.
+     Fibonacci extras: 13px, 21px for special cases.
+  */
+  --space-xs: 0.5rem;     /* 8px — tight gaps */
+  --space-sm: 1rem;       /* 16px — default gap */
+  --space-md: 1.5rem;     /* 24px — section gaps */
+  --space-lg: 2rem;       /* 32px — large gaps */
+  --space-xl: 3rem;       /* 48px — section padding */
+  --space-2xl: 4rem;      /* 64px — major sections */
+
+  /* Fibonacci extras */
+  --space-fib-sm: 0.8125rem;  /* 13px */
+  --space-fib-md: 1.3125rem;  /* 21px */
+
+  /* Legacy spacing aliases */
+  --paragraph-spacing: 0.75em;
+  --list-item-spacing: 0.25em;
+  --heading-spacing: 1.5em;
+
+  /* --- Measure (line length) --- */
+  --measure: 65ch;
+  --measure-narrow: 45ch;
+
+  /* --- Layout --- */
+  --slide-padding: var(--space-lg);
+  --slide-gap: var(--space-sm);
+
+  /* --- Safe-zone for projectors/TV overscan (5% default) --- */
+  --safe-inset-x: 5%;
+  --safe-inset-y: 5%;
+}
+
+/* ============================================
+   3. Base Typography
+   ============================================ */
+
+.slidev-layout {
+  font-family: var(--font-sans);
+  font-size: var(--font-size-base);
+  font-weight: var(--font-weight-normal);
+  line-height: var(--line-height-body);
+  letter-spacing: var(--letter-spacing-body);
+  word-spacing: var(--word-spacing-body);
+  color: var(--color-text);
+  padding: var(--safe-inset-y) var(--safe-inset-x);
+  height: 100%;
+  width: 100%;
+}
+
+/* --- Paragraphs --- */
+.slidev-layout p {
+  margin-block: var(--paragraph-spacing);
+  max-width: var(--measure);
+  text-align: left;
+}
+
+/* --- Headings --- */
+.slidev-layout h1,
+.slidev-layout h2,
+.slidev-layout h3,
+.slidev-layout h4 {
+  line-height: var(--line-height-heading);
+  letter-spacing: var(--letter-spacing-heading);
+  word-spacing: normal;
+  font-style: normal;
+  text-transform: none;
+}
+
+.slidev-layout h1 {
+  font-size: var(--font-size-h1);
+  font-weight: var(--font-weight-bold);
+  line-height: var(--line-height-heading);
+  margin-block-end: var(--space-sm);
+}
+
+.slidev-layout h2 {
+  font-size: var(--font-size-h2);
+  font-weight: var(--font-weight-semibold);
+  line-height: var(--line-height-heading);
+  margin-block-start: var(--space-lg);
+  margin-block-end: var(--space-sm);
+  opacity: 0.9;
+}
+
+.slidev-layout h3 {
+  font-size: var(--font-size-subhead);
+  font-weight: var(--font-weight-medium);
+  line-height: 1.25;
+  margin-block-start: var(--space-md);
+  margin-block-end: var(--space-xs);
+}
+
+/* Remove margin from first heading in slide */
+.slidev-layout > h1:first-child,
+.slidev-layout > h2:first-child,
+.slidev-layout > h3:first-child {
+  margin-block-start: 0;
+}
+
+/* --- Lists --- */
+.slidev-layout ul,
+.slidev-layout ol {
+  margin-block: var(--paragraph-spacing);
+  margin-inline-start: 1.5em;
+  line-height: var(--line-height-list);
+  text-align: left;
+  max-width: var(--measure);
+}
+
+.slidev-layout li {
+  margin-block: var(--list-item-spacing);
+}
+
+.slidev-layout ul li {
+  list-style-type: disc;
+}
+
+.slidev-layout ol li {
+  list-style-type: decimal;
+}
+
+/* Nested lists */
+.slidev-layout ul ul,
+.slidev-layout ol ol,
+.slidev-layout ul ol,
+.slidev-layout ol ul {
+  margin-block: 0.25em;
+}
+
+/* --- Strong/Bold --- */
+.slidev-layout strong,
+.slidev-layout b {
+  font-weight: var(--font-weight-semibold);
+}
+
+/* --- Emphasis (minimal italic usage) --- */
+.slidev-layout em,
+.slidev-layout i {
+  /* Italic only for book titles, foreign terms — not for emphasis */
+  font-style: italic;
+}
+
+/* --- Links --- */
+.slidev-layout a {
+  color: var(--color-primary);
+  text-decoration: underline;
+  text-underline-offset: 0.15em;
+}
+
+/* ============================================
+   4. Code & Monospace
+   ============================================ */
+
+.slidev-layout pre,
+.slidev-layout code {
+  font-family: var(--font-mono);
+  font-size: var(--font-size-code);
+  line-height: var(--line-height-code);
+  font-variant-ligatures: none;
+  font-variant-numeric: tabular-nums;
+  letter-spacing: 0;
+  word-spacing: normal;
+}
+
+.slidev-layout pre {
+  border-radius: 0.5rem;
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+  overflow-x: auto;
+}
+
+.slidev-layout code {
+  padding-left: 0.375rem;
+  padding-right: 0.375rem;
+  padding-top: 0.125rem;
+  padding-bottom: 0.125rem;
+  border-radius: 0.25rem;
+  background-color: var(--color-bg-muted);
+}
+
+.slidev-layout pre code {
+  padding: 0;
+  background-color: transparent;
+}
+
+/* ============================================
+   5. Tables
+   ============================================ */
+
+.slidev-layout table {
+  width: 100%;
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+  border-collapse: collapse;
+  font-variant-numeric: tabular-nums;
+}
+
+.slidev-layout th,
+.slidev-layout td {
+  padding-left: 1rem;
+  padding-right: 1rem;
+  padding-top: 0.5rem;
+  padding-bottom: 0.5rem;
+  border: 1px solid var(--color-border);
+  text-align: left;
+}
+
+.slidev-layout th {
+  background-color: var(--color-bg-muted);
+  font-weight: var(--font-weight-semibold);
+}
+
+/* ============================================
+   6. Blockquotes
+   ============================================ */
+
+.slidev-layout blockquote {
+  padding-left: 1rem;
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+  border-left: 4px solid var(--color-border-strong);
+  color: var(--color-text-secondary);
+  font-style: normal; /* No italic for readability */
+  max-width: var(--measure);
+}
+
+/* ============================================
+   7. Layout-Specific Typography
+   ============================================ */
+
+/* Default content area */
+.slide-content {
+  height: 100%;
+  width: 100%;
+  padding: 2rem;
+}
+
+/* Two columns layout */
+.two-cols-grid {
+  display: grid;
+  grid-template-columns: repeat(12, minmax(0, 1fr));
+  gap: 1rem;
+  height: 100%;
+}
+
+.two-cols-left,
+.two-cols-right {
+  overflow: auto;
+}
+
+.two-cols-left p,
+.two-cols-right p,
+.two-cols-left ul,
+.two-cols-right ul {
+  max-width: var(--measure-narrow);
+}
+
+/* Side title layout */
+.side-title-grid {
+  display: grid;
+  height: 100%;
+}
+
+.side-title-title {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1.5rem;
+  color: white;
+  background: var(--gradient-primary);
+}
+
+.side-title-title h1,
+.side-title-title h2 {
+  text-align: center;
+  max-width: none;
+}
+
+.side-title-content {
+  padding: 2rem;
+  overflow: auto;
+}
+
+/* Top title layout */
+.top-title-bar {
+  padding-left: 2rem;
+  padding-right: 2rem;
+  padding-top: 1rem;
+  padding-bottom: 1rem;
+  color: white;
+  background: var(--gradient-primary);
+}
+
+.top-title-content {
+  padding: 2rem;
+  flex: 1 1 0%;
+  overflow: auto;
+}
+
+/* Quote layout */
+.quote-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  padding: 3rem;
+}
+
+.quote-text {
+  font-size: 1.875rem; /* 30px */
+  line-height: 1.6;
+  max-width: 50ch;
+  text-align: center;
+  font-style: normal; /* No italic for readability */
+}
+
+.quote-text::before {
+  content: '"';
+  font-size: 3.75rem;
+  line-height: 1;
+  opacity: 0.3;
+  display: block;
+  margin-bottom: 0.5rem;
+}
+
+.quote-author {
+  font-size: var(--font-size-base);
+  font-weight: var(--font-weight-medium);
+  opacity: 0.7;
+  margin-top: 2rem;
+  text-align: center;
+}
+
+/* Cover layout */
+.cover-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  padding: 3rem;
+}
+
+.cover-container h1 {
+  text-align: center;
+  max-width: none;
+}
+
+.cover-container h2 {
+  text-align: center;
+  max-width: none;
+}
+
+/* Section layout */
+.section-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  padding: 3rem;
+  background: var(--gradient-section);
+}
+
+.section-container h1,
+.section-container h2 {
+  text-align: center;
+  max-width: none;
+}
+
+/* Center layout */
+.center-container h1,
+.center-container h2,
+.center-container p {
+  text-align: center;
+  max-width: none;
+}
+
+/* End layout */
+.end-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  padding: 3rem;
+}
+
+.end-container h1,
+.end-container h2,
+.end-container p {
+  text-align: center;
+  max-width: none;
+}
+
+/* Image layout */
+.image-container {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.image-main {
+  flex: 1 1 0%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+  overflow: hidden;
+}
+
+.image-main img {
+  height: 100%;
+  width: 100%;
+  object-fit: cover;
+}
+
+.image-caption {
+  padding: 1rem;
+  text-align: center;
+  font-size: var(--font-size-base);
+  opacity: 0.8;
+}
+
+.image-caption-overlay {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  padding: 1rem;
+  text-align: center;
+  font-size: var(--font-size-base);
+  background-color: rgba(0, 0, 0, 0.5);
+  color: white;
+}
+
+/* Full layout — edge-to-edge, no safe zone */
+.full-container {
+  height: 100%;
+  width: 100%;
+  padding: 0;
+}
+
+/* Edge-to-edge layouts override safe-zone padding */
+.slidev-layout.full-container,
+.slidev-layout.image-container,
+.slidev-layout.iframe-container {
+  padding: 0;
+}
+
+/* Iframe layout */
+.iframe-container {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  width: 100%;
+}
+
+.iframe-header {
+  padding: 1rem 2rem;
+  border-bottom: 1px solid var(--color-border);
+}
+
+.iframe-content {
+  flex: 1 1 0%;
+  width: 100%;
+  border: 0;
+}
+
+/* ============================================
+   8. Component Styles
+   ============================================ */
+
+/* Steps component */
+.steps-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+}
+
+.step-item {
+  display: flex;
+  align-items: center;
+}
+
+.step-circle {
+  width: 2rem;
+  height: 2rem;
+  border-radius: 9999px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: var(--font-size-small);
+  font-weight: var(--font-weight-bold);
+  background-color: var(--color-bg-muted);
+  color: var(--color-text);
+  transition:
+    background-color var(--dur-moderate-02) var(--ease-standard),
+    color var(--dur-moderate-02) var(--ease-standard),
+    transform var(--dur-moderate-01) var(--ease-expressive);
+}
+
+.step-circle.active {
+  background-color: var(--color-primary);
+  color: white;
+  transform: scale(1.15);
+}
+
+/* Dark theme: use dark text on light cyan background */
+.dark .step-circle.active {
+  color: #1F1F1F;
+}
+
+.step-circle.completed {
+  background-color: var(--color-success);
+  color: white;
+  transform: scale(1);
+}
+
+/* Dark theme: use dark text on bright green background */
+.dark .step-circle.completed {
+  color: #1F1F1F;
+}
+
+.step-label {
+  margin-inline-start: 0.5rem;
+  font-size: var(--font-size-small);
+}
+
+.step-connector {
+  position: relative;
+  width: 2rem;
+  height: 0.125rem;
+  margin-left: 0.25rem;
+  margin-right: 0.25rem;
+  background-color: var(--color-border);
+  overflow: hidden;
+}
+
+.step-connector::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 0%;
+  background-color: var(--color-success);
+  transition: width var(--dur-moderate-02) var(--ease-standard);
+}
+
+.step-connector.completed::after {
+  width: 100%;
+}
+
+/* Steps wrapper (for content modes) */
+.steps-wrapper {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
+/* Clickable steps (tabs mode) */
+.step-item.is-clickable {
+  cursor: pointer;
+  transition: opacity var(--dur-fast-02) var(--ease-standard);
+}
+
+.step-item.is-clickable:hover .step-circle:not(.active):not(.completed) {
+  background-color: var(--color-bg-soft);
+}
+
+.step-item.is-clickable:hover .step-label {
+  color: var(--color-primary);
+}
+
+/* Checkmark icon for completed steps */
+.step-check {
+  width: 1rem;
+  height: 1rem;
+}
+
+/* Steps content area */
+.steps-content {
+  margin-top: var(--space-md);
+  min-height: 4rem;
+}
+
+.step-content-panel {
+  /* Base state */
+}
+
+/* Vue Transition for step content */
+.step-content-enter-active {
+  transition:
+    opacity var(--dur-moderate-02) var(--ease-enter),
+    transform var(--dur-moderate-02) var(--ease-enter);
+}
+
+.step-content-leave-active {
+  transition:
+    opacity var(--dur-fast-02) var(--ease-exit),
+    transform var(--dur-fast-02) var(--ease-exit);
+}
+
+.step-content-enter-from {
+  opacity: 0;
+  transform: translateY(var(--shift-sm));
+}
+
+.step-content-leave-to {
+  opacity: 0;
+  transform: translateY(calc(var(--shift-xs) * -1));
+}
+
+/* Tags component */
+.tags-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+}
+
+.tag {
+  padding-left: 0.75rem;
+  padding-right: 0.75rem;
+  padding-top: 0.25rem;
+  padding-bottom: 0.25rem;
+  border-radius: 9999px;
+  font-size: var(--font-size-small);
+  background-color: var(--color-primary-soft);
+  color: var(--color-primary);
+}
+
+/* Button components */
+.btn {
+  display: inline-block;
+  padding: 0.5rem 1rem;
+  border-radius: 0.375rem;
+  font-weight: var(--font-weight-medium);
+  text-decoration: none;
+  cursor: pointer;
+  border: none;
+}
+
+.btn-primary {
+  background-color: var(--color-primary);
+  color: white;
+}
+
+.btn-success {
+  background-color: var(--color-success);
+  color: white;
+}
+
+.btn-danger {
+  background-color: var(--color-danger);
+  color: white;
+}
+
+.btn-secondary {
+  background-color: #8b5cf6;
+  color: white;
+}
+
+/* Links styled as buttons — underline for accessibility */
+a.btn,
+a.btn-primary,
+a.btn-success,
+a.btn-danger,
+a.btn-secondary {
+  color: white;
+  text-decoration: underline;
+  text-underline-offset: 0.15em;
+}
+
+a.btn:hover,
+a.btn-primary:hover,
+a.btn-success:hover,
+a.btn-danger:hover,
+a.btn-secondary:hover {
+  text-decoration: none;
+}
+
+/* Dark theme: light backgrounds need dark text */
+.dark .btn-primary,
+.dark .btn-success,
+.dark a.btn-primary,
+.dark a.btn-success,
+.dark button.btn-primary,
+.dark button.btn-success {
+  color: #1F1F1F;
+}
+
+/* Text color utilities */
+.text-primary { color: var(--color-text); }
+.text-secondary { color: var(--color-text-secondary); }
+.text-tertiary { color: var(--color-text-tertiary); }
+.text-success { color: var(--color-success); }
+.text-warning { color: var(--color-warning); }
+.text-danger { color: var(--color-danger); }
+.text-info { color: var(--color-info); }
+
+/* Color palette grid */
+.color-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1rem;
+  margin-top: 1.5rem;
+}
+
+.color-swatch {
+  height: 5rem;
+  border-radius: 0.5rem;
+  display: flex;
+  align-items: flex-end;
+  padding: 0.5rem;
+  border: 1px solid var(--color-border);
+}
+
+.swatch-label {
+  font-size: var(--font-size-small);
+  font-family: var(--font-mono);
+}
+
+/* Swatch backgrounds */
+.swatch-bg { background-color: var(--color-bg); }
+.swatch-bg-soft { background-color: var(--color-bg-soft); }
+.swatch-bg-muted { background-color: var(--color-bg-muted); }
+.swatch-primary { background-color: var(--color-primary); color: white; }
+.swatch-success { background-color: var(--color-success); color: white; }
+.swatch-warning { background-color: var(--color-warning); color: white; }
+.swatch-danger { background-color: var(--color-danger); color: white; }
+.swatch-info { background-color: var(--color-info); color: white; }
+
+/* Dark theme: light backgrounds need dark text */
+.dark .swatch-primary,
+.dark .swatch-success,
+.dark .swatch-warning,
+.dark .swatch-info {
+  color: #1F1F1F;
+}
+
+/* ============================================
+   9. Debug Safe Zone Overlay
+   Add .debug-safe-zone to body for testing
+   ============================================ */
+
+.debug-safe-zone .slidev-layout::before {
+  content: '';
+  position: absolute;
+  inset: var(--safe-inset-y) var(--safe-inset-x);
+  border: 2px dashed rgba(255, 0, 0, 0.5);
+  pointer-events: none;
+  z-index: 9999;
+}
+
+/* ============================================
+   10. Callout Blockquotes (Note/Warning/Tip)
+   ============================================ */
+
+/* Enhanced blockquote callout base style */
+.slidev-layout blockquote:has(p:first-child strong:first-child) {
+  border-left-width: 4px;
+  padding: 1rem 1rem 1rem 1.25rem;
+  background-color: var(--color-bg-soft);
+  border-radius: 0 0.375rem 0.375rem 0;
+}
+
+/* Semantic callout classes — apply to blockquote */
+.slidev-layout blockquote.callout-note,
+.callout-note {
+  border-left-color: var(--color-info);
+}
+
+.slidev-layout blockquote.callout-warning,
+.callout-warning {
+  border-left-color: var(--color-warning);
+}
+
+.slidev-layout blockquote.callout-tip,
+.callout-tip {
+  border-left-color: var(--color-success);
+}
+
+.slidev-layout blockquote.callout-danger,
+.callout-danger {
+  border-left-color: var(--color-danger);
+}
+
+/* ============================================
+   11. Keyboard Focus Styles (WCAG 2.2)
+   ============================================ */
+
+.slidev-layout :focus-visible {
+  outline: 3px solid var(--color-primary);
+  outline-offset: 2px;
+}
+
+/* Ensure focus is not obscured */
+.slidev-layout :focus-visible {
+  scroll-padding: 1rem;
+}
+
+/* ============================================
+   12. New Layouts (image-left/right, iframe-left/right, two-cols-header, statement)
+   ============================================ */
+
+/* Image-left layout */
+.image-left-container {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  height: 100%;
+  width: 100%;
+}
+
+.image-left-image {
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+.image-left-content {
+  padding: var(--safe-inset-y) var(--safe-inset-x);
+  overflow: auto;
+}
+
+/* Image-right layout */
+.image-right-container {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  height: 100%;
+  width: 100%;
+}
+
+.image-right-image {
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+.image-right-content {
+  padding: var(--safe-inset-y) var(--safe-inset-x);
+  overflow: auto;
+}
+
+/* Iframe-left layout */
+.iframe-left-container {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  height: 100%;
+  width: 100%;
+}
+
+.iframe-left-frame {
+  width: 100%;
+  height: 100%;
+  border: 0;
+}
+
+.iframe-left-content {
+  padding: var(--safe-inset-y) var(--safe-inset-x);
+  overflow: auto;
+}
+
+/* Iframe-right layout */
+.iframe-right-container {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  height: 100%;
+  width: 100%;
+}
+
+.iframe-right-frame {
+  width: 100%;
+  height: 100%;
+  border: 0;
+}
+
+.iframe-right-content {
+  padding: var(--safe-inset-y) var(--safe-inset-x);
+  overflow: auto;
+}
+
+/* Two-cols-header layout */
+.two-cols-header-title {
+  border-bottom: 2px solid var(--color-border);
+  padding-bottom: var(--space-sm);
+}
+
+/* Statement layout */
+.statement-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  padding: 3rem;
+}
+
+.statement-content {
+  text-align: center;
+  max-width: 80%;
+}
+
+.statement-content h1,
+.statement-content h2,
+.statement-content p {
+  text-align: center;
+  max-width: none;
+}
+
+.statement-content h1 {
+  font-size: calc(var(--font-size-h1) * 1.2);
+  line-height: 1.1;
+}
+
+.statement-content h2 {
+  font-size: calc(var(--font-size-h2) * 1.15);
+  line-height: 1.15;
+}
+
+/* Edge-to-edge for split layouts */
+.slidev-layout.image-left-container,
+.slidev-layout.image-right-container,
+.slidev-layout.iframe-left-container,
+.slidev-layout.iframe-right-container {
+  padding: 0;
+}
+

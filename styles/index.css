@@ -1,0 +1,12 @@
+/* ============================================
+   slidev-theme-troshab — CSS Entry Point
+   ============================================
+
+   Slidev auto-detects this file (styles/index.css)
+   and loads all theme styles through base.css.
+
+   base.css imports colors.css via @import.
+   ============================================ */
+
+@import './base.css';
+@import './motion.css';

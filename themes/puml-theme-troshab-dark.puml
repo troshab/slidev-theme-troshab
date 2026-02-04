@@ -1,0 +1,354 @@
+''
+'' Troshab Dark Theme for PlantUML
+'' Dracula-inspired colors for slidev-theme-troshab
+''
+'' AUTO-GENERATED from styles/colors.css
+'' Run: node scripts/sync-colors.js
+''
+'' Usage (after repo is published):
+''   @startuml
+''   !theme troshab-dark from https://raw.githubusercontent.com/troshab/slidev-theme-troshab/main/themes
+''   ...
+''   @enduml
+''
+
+!$THEME = "troshab-dark"
+
+!if %not(%variable_exists("$BGCOLOR"))
+!$BGCOLOR = "#282A36"
+!endif
+
+skinparam backgroundColor $BGCOLOR
+skinparam useBetaStyle false
+
+'' ==========================================
+'' Color Palette (from colors.css)
+'' ==========================================
+!$BACKGROUND      = "#282A36"
+!$BG_SOFT         = "#343746"
+!$BG_MUTED        = "#44475A"
+!$TEXT            = "#F8F8F2"
+!$TEXT_SECONDARY  = "#A1AACB"
+!$TEXT_TERTIARY   = "#8890A8"
+!$BORDER          = "#44475A"
+!$BORDER_STRONG   = "#6272A4"
+!$PRIMARY         = "#8BE9FD"
+!$SUCCESS         = "#50FA7B"
+!$WARNING         = "#FFB86C"
+!$DANGER          = "#FF5555"
+!$INFO            = "#8BE9FD"
+
+'' ==========================================
+'' Global Settings
+'' ==========================================
+skinparam defaultFontName       "IBM Plex Sans"
+skinparam defaultFontSize       14
+skinparam defaultFontColor      $TEXT
+skinparam dpi                   100
+skinparam shadowing             false
+skinparam roundCorner           8
+skinparam wrapWidth             200
+
+'' ==========================================
+'' Arrows
+'' ==========================================
+skinparam ArrowColor            $TEXT_SECONDARY
+skinparam ArrowFontColor        $TEXT_SECONDARY
+skinparam ArrowFontName         "IBM Plex Sans"
+skinparam ArrowFontSize         12
+skinparam ArrowThickness        1.5
+
+'' ==========================================
+'' Sequence Diagram
+'' ==========================================
+skinparam sequence {
+    ArrowColor          $TEXT_SECONDARY
+    ArrowFontColor      $TEXT_SECONDARY
+    ArrowFontSize       12
+    ArrowThickness      1.5
+
+    ActorBorderColor    $PRIMARY
+    ActorBackgroundColor $BG_SOFT
+    ActorFontColor      $TEXT
+    ActorFontSize       14
+    ActorFontStyle      bold
+
+    LifeLineBorderColor $BORDER_STRONG
+    LifeLineBackgroundColor $BG_MUTED
+
+    ParticipantBorderColor   $PRIMARY
+    ParticipantBackgroundColor $BG_SOFT
+    ParticipantFontColor     $TEXT
+    ParticipantFontSize      14
+    ParticipantFontStyle     bold
+    ParticipantPadding       20
+
+    BoxBorderColor      $BORDER_STRONG
+    BoxBackgroundColor  $BACKGROUND
+    BoxFontColor        $TEXT
+
+    DividerBorderColor  $BORDER_STRONG
+    DividerBackgroundColor $BG_MUTED
+    DividerFontColor    $TEXT
+
+    GroupBorderColor    $BORDER_STRONG
+    GroupBackgroundColor $BACKGROUND
+    GroupFontColor      $TEXT
+    GroupHeaderFontColor $TEXT
+
+    ReferenceBackgroundColor $BG_MUTED
+    ReferenceBorderColor $BORDER_STRONG
+    ReferenceFontColor  $TEXT
+
+    DelayFontColor      $TEXT_TERTIARY
+}
+
+'' ==========================================
+'' Class Diagram
+'' ==========================================
+skinparam class {
+    BackgroundColor     $BG_SOFT
+    BorderColor         $PRIMARY
+    BorderThickness     2
+    FontColor           $TEXT
+    FontSize            14
+
+    ArrowColor          $TEXT_SECONDARY
+    ArrowFontColor      $TEXT_SECONDARY
+
+    AttributeFontColor  $TEXT
+    AttributeFontSize   12
+    AttributeIconSize   0
+
+    StereotypeFontColor $TEXT_TERTIARY
+    StereotypeFontSize  11
+
+    HeaderBackgroundColor $BG_MUTED
+}
+
+'' ==========================================
+'' Object Diagram
+'' ==========================================
+skinparam object {
+    BackgroundColor     $BG_SOFT
+    BorderColor         $PRIMARY
+    BorderThickness     2
+    FontColor           $TEXT
+    FontSize            14
+    ArrowColor          $TEXT_SECONDARY
+    AttributeFontColor  $TEXT
+}
+
+'' ==========================================
+'' Component Diagram
+'' ==========================================
+skinparam component {
+    BackgroundColor     $BG_SOFT
+    BorderColor         $PRIMARY
+    BorderThickness     2
+    FontColor           $TEXT
+    FontSize            14
+    ArrowColor          $TEXT_SECONDARY
+
+    InterfaceBackgroundColor $BG_SOFT
+    InterfaceBorderColor $PRIMARY
+}
+
+'' ==========================================
+'' Package
+'' ==========================================
+skinparam package {
+    BackgroundColor     $BACKGROUND
+    BorderColor         $BORDER_STRONG
+    BorderThickness     2
+    FontColor           $TEXT
+    FontSize            14
+    FontStyle           bold
+
+    StereotypeFontColor $TEXT_TERTIARY
+}
+
+'' ==========================================
+'' Activity Diagram
+'' ==========================================
+skinparam activity {
+    BackgroundColor     $BG_SOFT
+    BorderColor         $PRIMARY
+    BorderThickness     2
+    FontColor           $TEXT
+    FontSize            14
+
+    ArrowColor          $TEXT_SECONDARY
+    ArrowFontColor      $TEXT_SECONDARY
+
+    StartColor          $SUCCESS
+    EndColor            $DANGER
+    BarColor            $BORDER_STRONG
+
+    DiamondBackgroundColor $BG_MUTED
+    DiamondBorderColor  $WARNING
+    DiamondFontColor    $TEXT
+}
+
+'' ==========================================
+'' State Diagram
+'' ==========================================
+skinparam state {
+    BackgroundColor     $BG_SOFT
+    BorderColor         $PRIMARY
+    BorderThickness     2
+    FontColor           $TEXT
+    FontSize            14
+
+    ArrowColor          $TEXT_SECONDARY
+    ArrowFontColor      $TEXT_SECONDARY
+
+    StartColor          $SUCCESS
+    EndColor            $DANGER
+}
+
+'' ==========================================
+'' Use Case Diagram
+'' ==========================================
+skinparam usecase {
+    BackgroundColor     $BG_SOFT
+    BorderColor         $PRIMARY
+    BorderThickness     2
+    FontColor           $TEXT
+    FontSize            14
+
+    ArrowColor          $TEXT_SECONDARY
+
+    ActorBackgroundColor $BG_SOFT
+    ActorBorderColor    $PRIMARY
+    ActorFontColor      $TEXT
+}
+
+'' ==========================================
+'' Note
+'' ==========================================
+skinparam note {
+    BackgroundColor     $BG_MUTED
+    BorderColor         $BORDER_STRONG
+    BorderThickness     1
+    FontColor           $TEXT
+    FontSize            12
+}
+
+'' ==========================================
+'' Legend
+'' ==========================================
+skinparam legend {
+    BackgroundColor     $BG_SOFT
+    BorderColor         $BORDER_STRONG
+    BorderThickness     1
+    FontColor           $TEXT
+    FontSize            12
+}
+
+'' ==========================================
+'' Card / Rectangle / Entity
+'' ==========================================
+skinparam card {
+    BackgroundColor     $BG_SOFT
+    BorderColor         $PRIMARY
+    BorderThickness     2
+    FontColor           $TEXT
+}
+
+skinparam rectangle {
+    BackgroundColor     $BG_SOFT
+    BorderColor         $PRIMARY
+    BorderThickness     2
+    FontColor           $TEXT
+    StereotypeFontColor $TEXT_TERTIARY
+}
+
+skinparam entity {
+    BackgroundColor     $BG_SOFT
+    BorderColor         $PRIMARY
+    FontColor           $TEXT
+}
+
+'' ==========================================
+'' Database / Storage / Cloud / Queue
+'' ==========================================
+skinparam database {
+    BackgroundColor     $BG_SOFT
+    BorderColor         $INFO
+    BorderThickness     2
+    FontColor           $TEXT
+}
+
+skinparam storage {
+    BackgroundColor     $BG_SOFT
+    BorderColor         $INFO
+    BorderThickness     2
+    FontColor           $TEXT
+}
+
+skinparam cloud {
+    BackgroundColor     $BG_SOFT
+    BorderColor         $PRIMARY
+    BorderThickness     2
+    FontColor           $TEXT
+}
+
+skinparam queue {
+    BackgroundColor     $BG_SOFT
+    BorderColor         $WARNING
+    BorderThickness     2
+    FontColor           $TEXT
+}
+
+'' ==========================================
+'' Agent / Actor / Boundary / Control
+'' ==========================================
+skinparam agent {
+    BackgroundColor     $BG_SOFT
+    BorderColor         $PRIMARY
+    FontColor           $TEXT
+}
+
+skinparam actor {
+    BackgroundColor     $BG_SOFT
+    BorderColor         $PRIMARY
+    FontColor           $TEXT
+}
+
+skinparam boundary {
+    BackgroundColor     $BG_SOFT
+    BorderColor         $PRIMARY
+    FontColor           $TEXT
+}
+
+skinparam control {
+    BackgroundColor     $BG_SOFT
+    BorderColor         $PRIMARY
+    FontColor           $TEXT
+}
+
+'' ==========================================
+'' Mind Map / WBS / Timing / Gantt
+'' ==========================================
+skinparam mindmap {
+    BackgroundColor     $BG_SOFT
+    BorderColor         $PRIMARY
+    FontColor           $TEXT
+}
+
+skinparam wbs {
+    BackgroundColor     $BG_SOFT
+    BorderColor         $PRIMARY
+    FontColor           $TEXT
+}
+
+skinparam timing {
+    ArrowColor          $TEXT_SECONDARY
+    FontColor           $TEXT
+}
+
+skinparam gantt {
+    BackgroundColor     $BACKGROUND
+    FontColor           $TEXT
+}

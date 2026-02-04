@@ -1,0 +1,34 @@
+{
+  "name": "slidev-theme-troshab",
+  "version": "0.1.0",
+  "description": "A minimal, universal Slidev theme with flexible layouts and ready-to-use slide templates",
+  "author": "troshab",
+  "license": "MIT",
+  "keywords": [
+    "slidev-theme",
+    "slidev",
+    "presentation",
+    "slides"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/troshab/slidev-theme-troshab"
+  },
+  "slidev": {
+    "colorSchema": "both",
+    "highlighter": "shiki",
+    "defaults": {
+      "layout": "default",
+      "transition": "t-fade"
+    }
+  },
+  "engines": {
+    "node": ">=18.0.0",
+    "slidev": ">=0.50.0"
+  },
+  "devDependencies": {
+    "@slidev/cli": "^0.50.0",
+    "playwright-chromium": "^1.58.1",
+    "unocss": "^0.65.0"
+  }
+}
