@@ -176,7 +176,7 @@ export default defineMermaidSetup(() => {
       todayLineColor: '#B42318',
 
       // Fonts
-      fontFamily: 'sans-serif, sans-serif',
+      fontFamily: 'Arial, Arial',
     }
   }
 
@@ -343,7 +343,7 @@ export default defineMermaidSetup(() => {
       todayLineColor: '#FF5555',
 
       // Fonts
-      fontFamily: 'sans-serif, sans-serif',
+      fontFamily: 'Arial, Arial',
     }
   }
 

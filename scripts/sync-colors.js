@@ -242,7 +242,7 @@ export default defineMermaidSetup(() => {
       todayLineColor: '${L('--color-danger')}',
 
       // Fonts
-      fontFamily: 'sans-serif, sans-serif',
+      fontFamily: 'Arial, Arial',
     }
   }
 
@@ -409,7 +409,7 @@ export default defineMermaidSetup(() => {
       todayLineColor: '${D('--color-danger')}',
 
       // Fonts
-      fontFamily: 'sans-serif, sans-serif',
+      fontFamily: 'Arial, Arial',
     }
   }
 
@@ -490,7 +490,7 @@ skinparam useBetaStyle false
 '' ==========================================
 '' Global Settings
 '' ==========================================
-skinparam defaultFontName       "sans-serif"
+skinparam defaultFontName       "Arial"
 skinparam defaultFontSize       14
 skinparam defaultFontColor      $TEXT
 skinparam dpi                   100
@@ -503,7 +503,7 @@ skinparam wrapWidth             200
 '' ==========================================
 skinparam ArrowColor            $TEXT_SECONDARY
 skinparam ArrowFontColor        $TEXT_SECONDARY
-skinparam ArrowFontName         "sans-serif"
+skinparam ArrowFontName         "Arial"
 skinparam ArrowFontSize         12
 skinparam ArrowThickness        1.5
 
