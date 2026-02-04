@@ -7,7 +7,7 @@
 ''
 '' Usage (after repo is published):
 ''   @startuml
-''   !theme troshab-dark from https://raw.githubusercontent.com/troshab/slidev-theme-troshab/main/themes
+''   !theme troshab-dark from https://raw.githubusercontent.com/troshab/slidev-theme-troshab/master/themes
 ''   ...
 ''   @enduml
 ''

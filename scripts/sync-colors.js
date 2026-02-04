@@ -456,7 +456,7 @@ function generatePuml(colors, isDark) {
 ''
 '' Usage (after repo is published):
 ''   @startuml
-''   !theme ${themeName} from https://raw.githubusercontent.com/troshab/slidev-theme-troshab/main/themes
+''   !theme ${themeName} from https://raw.githubusercontent.com/troshab/slidev-theme-troshab/master/themes
 ''   ...
 ''   @enduml
 ''
