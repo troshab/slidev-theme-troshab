@@ -242,7 +242,7 @@ export default defineMermaidSetup(() => {
       todayLineColor: '${L('--color-danger')}',
 
       // Fonts
-      fontFamily: 'IBM Plex Sans, sans-serif',
+      fontFamily: 'sans-serif, sans-serif',
     }
   }
 
@@ -409,7 +409,7 @@ export default defineMermaidSetup(() => {
       todayLineColor: '${D('--color-danger')}',
 
       // Fonts
-      fontFamily: 'IBM Plex Sans, sans-serif',
+      fontFamily: 'sans-serif, sans-serif',
     }
   }
 
@@ -464,7 +464,7 @@ function generatePuml(colors, isDark) {
 !$THEME = "${themeName}"
 
 !if %not(%variable_exists("$BGCOLOR"))
-!$BGCOLOR = "${bg}"
+!$BGCOLOR = "transparent"
 !endif
 
 skinparam backgroundColor $BGCOLOR
@@ -490,7 +490,7 @@ skinparam useBetaStyle false
 '' ==========================================
 '' Global Settings
 '' ==========================================
-skinparam defaultFontName       "IBM Plex Sans"
+skinparam defaultFontName       "sans-serif"
 skinparam defaultFontSize       14
 skinparam defaultFontColor      $TEXT
 skinparam dpi                   100
@@ -503,7 +503,7 @@ skinparam wrapWidth             200
 '' ==========================================
 skinparam ArrowColor            $TEXT_SECONDARY
 skinparam ArrowFontColor        $TEXT_SECONDARY
-skinparam ArrowFontName         "IBM Plex Sans"
+skinparam ArrowFontName         "sans-serif"
 skinparam ArrowFontSize         12
 skinparam ArrowThickness        1.5
 
