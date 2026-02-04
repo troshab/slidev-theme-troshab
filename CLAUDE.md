@@ -474,7 +474,7 @@ If a diagram doesn't fit:
 
 ## PLANTUML DIAGRAMS
 
-PlantUML is supported via Slidev's built-in integration. Theme includes custom PlantUML themes that match the slide colors.
+PlantUML renders on external server (plantuml.com). Themes are loaded from GitHub raw URL.
 
 ### Using Theme Colors
 
@@ -483,7 +483,7 @@ Add the theme directive at the start of your PlantUML block:
 **Dark theme (Dracula colors):**
 ```plantuml
 @startuml
-!theme troshab-dark from themes
+!theme troshab-dark from https://raw.githubusercontent.com/troshab/slidev-theme-troshab/master/themes
 
 class User {
   +id: string
@@ -495,7 +495,7 @@ class User {
 **Light theme:**
 ```plantuml
 @startuml
-!theme troshab-light from themes
+!theme troshab-light from https://raw.githubusercontent.com/troshab/slidev-theme-troshab/master/themes
 
 class User {
   +id: string
@@ -504,12 +504,23 @@ class User {
 @enduml
 ```
 
+### Updating PlantUML Themes
+
+**IMPORTANT:** PlantUML themes are loaded from GitHub. To apply changes:
+
+1. Edit `styles/colors.css` (source of truth)
+2. Run `node scripts/sync-colors.js` to regenerate themes
+3. Commit and push to GitHub
+4. Changes will be visible in diagrams after push
+
+Local changes won't affect PlantUML until pushed to remote.
+
 ### Available Theme Files
 
 | File | Description |
 |------|-------------|
-| `themes/puml-theme-troshab-dark.puml` | Dracula-inspired dark theme |
-| `themes/puml-theme-troshab-light.puml` | Clean light theme |
+| `themes/puml-theme-troshab-dark.puml` | Dracula-inspired dark theme (auto-generated) |
+| `themes/puml-theme-troshab-light.puml` | Clean light theme (auto-generated) |
 
 ### Theme Features
 
@@ -529,7 +540,7 @@ Override specific settings after the theme import:
 
 ```plantuml
 @startuml
-!theme troshab-dark from themes
+!theme troshab-dark from https://raw.githubusercontent.com/troshab/slidev-theme-troshab/master/themes
 
 ' Override specific colors
 skinparam class {
@@ -537,17 +548,6 @@ skinparam class {
 }
 
 class Example
-@enduml
-```
-
-### Remote Usage (for published themes)
-
-Once the theme is published to GitHub:
-
-```plantuml
-@startuml
-!theme troshab-dark from https://raw.githubusercontent.com/troshab/slidev-theme-troshab/main/themes
-...
 @enduml
 ```
 

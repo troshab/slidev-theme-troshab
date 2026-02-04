@@ -847,11 +847,11 @@ layout: default
 
 # PlantUML: Sequence Diagram
 
-PlantUML renders on external server. Use built-in themes (`cyborg` for dark, `spacelab` for light):
+PlantUML renders on external server. Use our theme from GitHub:
 
 ```plantuml
 @startuml
-!theme cyborg
+!theme troshab-dark from https://raw.githubusercontent.com/troshab/slidev-theme-troshab/master/themes
 
 Alice -> Bob: Hello Bob!
 Bob --> Alice: Hi Alice!
@@ -860,7 +860,7 @@ Bob --> Alice: Return data
 @enduml
 ```
 
-> **Built-in themes:** `cyborg`, `amiga`, `spacelab`, `sketchy-outline`, `vibrant`
+> **Usage:** `!theme troshab-dark from https://raw.githubusercontent.com/.../themes`
 
 ---
 layout: default
@@ -870,7 +870,7 @@ layout: default
 
 ```plantuml
 @startuml
-!theme cyborg
+!theme troshab-dark from https://raw.githubusercontent.com/troshab/slidev-theme-troshab/master/themes
 
 left to right direction
 actor User
@@ -884,7 +884,7 @@ rectangle System {
 @enduml
 ```
 
-> **Local themes:** `themes/puml-theme-troshab-*.puml` (for self-hosted PlantUML server)
+> **Light theme:** replace `troshab-dark` with `troshab-light`
 
 ---
 layout: default
